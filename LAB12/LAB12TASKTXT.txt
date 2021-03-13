@@ -1,0 +1,24 @@
+-------------------------TASK1--------------
+select * from employee122;
+create SEQUENCE employee2 INCREMENT by 1 START WITH 1 MAXVALUE 10000;
+INSERT INTO employee122 (EMPNO1, NAME1,DESIGNATION,QUALIFICATION,JOIN_DATE) VALUES(employee2.NEXTVAL, 'SHOAIB AHMMED',1, 'BE', TO_DATE('27-DEC-1980', 'DD-MON-YYYY'));
+INSERT INTO employee122 (EMPNO1, NAME1,DESIGNATION,QUALIFICATION,JOIN_DATE) VALUES(employee2.NEXTVAL, 'SHOAIB AHMMED',2, 'BE', TO_DATE('27-DEC-1980', 'DD-MON-YYYY'));
+
+select employee2.CURRVAL FROM DUAL;FOR CURRENT VALUE
+DROP SEQUENCE employee1;drop sequence
+
+----------------------------TASK2-----------------------
+i-Create index Employee3 On EMPLOYEE122(NAME1);
+ii-Create index Employee_des On EMPLOYEE122(designation);
+iii-Create index Training_title On training122(substr(TITLE1,1,10));
+
+DROP index Training_title;
+checking indexes:
+SELECT INDEX_NAME, TABLE_NAME, TABLE_OWNER, UNIQUENESS FROM USER_INDEXES; 
+
+-------------------------TASK3----------------
+i-Create Bitmap index Employee_Gender On EMPLOYEE122(gender);
+ii-Create Bitmap index Employee_Project_Performance On EMPLOYEE_Project122(Performance1);
+
+checking indexes:
+SELECT INDEX_NAME, TABLE_NAME, TABLE_OWNER, UNIQUENESS FROM USER_INDEXES; 

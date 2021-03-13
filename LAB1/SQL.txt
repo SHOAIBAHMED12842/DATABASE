@@ -1,0 +1,8 @@
+connection: SQL
+ID for Student: uit1
+pw: 87654321
+ID for Student uit2
+pw: 87654321
+hostname: 172.16.32.30
+SID: ORA01
+Port: 1521

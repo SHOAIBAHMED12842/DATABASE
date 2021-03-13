@@ -1,0 +1,148 @@
+create table employee122
+(
+empno1 number(4),
+name1 varchar (20),
+designation varchar (40),
+qualification varchar (20),
+join_date date,
+constraint pk_pripit primary key (empno1));
+
+create table project1222
+(
+pid varchar(4),
+title varchar (20),
+clinet varchar (40),
+duration1 number,
+status varchar(14),
+constraint pk_prpit primary key (pid),
+CONSTRAINT ck_propit check (((lower(status)='new') or (upper(status)='new')or (initcap(status)='new')) or ((lower(status)='in progress') or (upper(status)='in progress')or (initcap(status)='in progress')) or ((lower(status)='complete') or (upper(status)='complete')or (initcap(status)='complete'))));
+
+create table employee_project122
+(
+empno1 number(4),
+pid varchar(5),
+performance1 varchar(14),
+CONSTRAINT ck_pro1t check (((lower(performance1)='excellent') or (upper(performance1)='excellent')or (initcap(performance1)='excellent')) or ((lower(performance1)='good') or (upper(performance1)='good')or (initcap(performance1)='good')) or ((lower(performance1)='fair') or (upper(performance1)='fair')or (initcap(performance1)='fair'))or ((lower(performance1)='bad') or (upper(performance1)='bad')or (initcap(performance1)='bad'))or ((lower(performance1)='poor') or (upper(performance1)='poor')or (initcap(performance1)='poor'))),
+constraint fk_emp12t foreign key (empno1) references employee122(empno1),
+constraint fk_pid3t foreign key (pid) references project1222(pid) );
+
+create table grade122
+(
+grade number,
+designation1 varchar (40),
+totalposts number,
+postavailable number,
+constraint ck_postit check (postavailable<=totalposts));
+
+create table training122
+(
+tcode varchar(4),
+title1 varchar (20),
+startdate date,
+enddate date,
+constraint pk_tcit primary key (tcode));
+
+
+create table employee_training122
+(
+empno1 number(4),
+tcode varchar(4),
+attendance number (3),
+constraint ck_attit check (attendance <=100 and attendance >=0),
+constraint fk_emp1t foreign key (empno1) references employee122(empno1),
+constraint fk_tc1it foreign key (tcode) references training122(tcode) );
+
+ALTER TABLE employee122
+ADD (
+constraint fk_tcDES foreign key (designation) references grade122(designation) );
+ALTER TABLE grade122
+ADD (
+constraint ck_PRIDES PRIMARY KEY (designation) );
+DESC grade122;
+SELECT * FROM grade122;
+INSERT INTO grade122(GRADE, DESIGNATION1,TOTALPOSTS,POSTAVAILABLE,DESIGNATION) VALUES (2, 'Engineer', 5,4,1);
+INSERT INTO grade122(GRADE, DESIGNATION1,TOTALPOSTS,POSTAVAILABLE,DESIGNATION) VALUES (4, 'Database Developer', 2,2,2);
+INSERT INTO grade122(GRADE, DESIGNATION1,TOTALPOSTS,POSTAVAILABLE,DESIGNATION) VALUES (1, 'Analyst', 15,14,3);
+INSERT INTO grade122(GRADE, DESIGNATION1,TOTALPOSTS,POSTAVAILABLE,DESIGNATION) VALUES (2, 'Programmer', 12,4,4);
+INSERT INTO grade122(GRADE, DESIGNATION1,TOTALPOSTS,POSTAVAILABLE,DESIGNATION) VALUES (7, 'Developer', 10,9,5);
+INSERT INTO grade122(GRADE, DESIGNATION1,TOTALPOSTS,POSTAVAILABLE,DESIGNATION) VALUES (9, 'DBA', 5,4,6);
+
+DESC employee122;
+
+INSERT INTO employee122 (EMPNO1, NAME1,DESIGNATION,QUALIFICATION,JOIN_DATE) VALUES(2, 'UZAIR AHMMED',1, 'BE', TO_DATE('27-DEC-1980', 'DD-MON-YYYY'));
+INSERT INTO employee122 (EMPNO1, NAME1,DESIGNATION,QUALIFICATION,JOIN_DATE) VALUES(14, 'AAQIB',3, 'BS', TO_DATE('11-DEC-1980', 'DD-MON-YYYY'));
+INSERT INTO employee122 (EMPNO1, NAME1,DESIGNATION,QUALIFICATION,JOIN_DATE) VALUES(15, 'ZARYAB',5, 'MS', TO_DATE('10-DEC-1980', 'DD-MON-YYYY'));
+INSERT INTO employee122 (EMPNO1, NAME1,DESIGNATION,QUALIFICATION,JOIN_DATE) VALUES(25, 'AHMED',4, 'ME', TO_DATE('21-DEC-1980', 'DD-MON-YYYY'));
+INSERT INTO employee122 (EMPNO1, NAME1,DESIGNATION,QUALIFICATION,JOIN_DATE) VALUES(31, 'TANZEEL',1, 'BE', TO_DATE('10-DEC-1980', 'DD-MON-YYYY'));
+INSERT INTO employee122 (EMPNO1, NAME1,DESIGNATION,QUALIFICATION,JOIN_DATE) VALUES(40, 'ALI',2, 'BE', TO_DATE('1-DEC-1980', 'DD-MON-YYYY'));
+ UPDATE employee122 SET JOIN_DATE=TO_DATE('11-DEC-1980', 'DD-MON-YYYY') WHERE NAME1 ='AAQIB';
+ SELECT * FROM employee122;
+ 
+ DESC project1222;
+ INSERT INTO project1222 (PID, TITLE,CLINET,DURATION1,STATUS) VALUES(1, 'Project1',NULL,2, 'NEW' );
+ INSERT INTO project1222 (PID, TITLE,CLINET,DURATION1,STATUS) VALUES(2, 'Project2',NULL,5, 'In progress' );
+ INSERT INTO project1222 (PID, TITLE,CLINET,DURATION1,STATUS) VALUES(3, 'Project3',NULL,4, 'complete' );
+ INSERT INTO project1222 (PID, TITLE,CLINET,DURATION1,STATUS) VALUES(4, 'Project4',NULL,9, 'In progress' );
+ INSERT INTO project1222 (PID, TITLE,CLINET,DURATION1,STATUS) VALUES(5, 'Project5',NULL,10, 'complete' );
+ INSERT INTO project1222 (PID, TITLE,CLINET,DURATION1,STATUS) VALUES(6, 'Project6',NULL,10, 'complete' );
+ INSERT INTO project1222 (PID, TITLE,CLINET,DURATION1,STATUS) VALUES(9, 'Project7',NULL,5, 'complete' );
+ INSERT INTO project1222 (PID, TITLE,CLINET,DURATION1,STATUS) VALUES(10, 'Project8',NULL,6, 'In progress' );
+
+ SELECT * FROM project1222;
+ 
+ desc training122;
+ INSERT INTO training122 (TCODE, TITLE1,STARTDATE,ENDDATE) VALUES(1, 'PROGRAMMING', TO_DATE('27-DEC-1980', 'DD-MON-YYYY'),TO_DATE('27-DEC-1989', 'DD-MON-YYYY'));
+ INSERT INTO training122 (TCODE, TITLE1,STARTDATE,ENDDATE) VALUES(2, 'MARKETING', TO_DATE('01-DEC-1980', 'DD-MON-YYYY'),TO_DATE('27-DEC-1990', 'DD-MON-YYYY'));
+ INSERT INTO training122 (TCODE, TITLE1,STARTDATE,ENDDATE) VALUES(3, 'SPEAKING', TO_DATE('11-NOV-1980', 'DD-MON-YYYY'),TO_DATE('01-NOV-1995', 'DD-MON-YYYY'));
+ 
+ SELECT * FROM training122;
+ 
+ desc employee_project122;
+ 
+ INSERT INTO employee_project122 (EMPNO1, PID,PERFORMANCE1) VALUES(2,	1	,'Excellent' );
+  INSERT INTO employee_project122 (EMPNO1, PID,PERFORMANCE1) VALUES(31,	5,	'Poor' );
+   INSERT INTO employee_project122 (EMPNO1, PID,PERFORMANCE1) VALUES(15,	3	,'Good' );
+    INSERT INTO employee_project122 (EMPNO1, PID,PERFORMANCE1) VALUES(25,	2	,'Fair' );
+     INSERT INTO employee_project122 (EMPNO1, PID,PERFORMANCE1) VALUES(14,	4	,'Bad' );
+      INSERT INTO employee_project122 (EMPNO1, PID,PERFORMANCE1) VALUES(40,	6	,'Excellent' );
+       INSERT INTO employee_project122 (EMPNO1, PID,PERFORMANCE1) VALUES(31,	9	,'Excellent');
+        INSERT INTO employee_project122 (EMPNO1, PID,PERFORMANCE1) VALUES(15,	10	,'Excellent');
+        
+        SELECT * FROM employee_project122;
+        
+        DESC employee_training122;
+        
+        INSERT INTO employee_training122 (EMPNO1, TCODE,ATTENDANCE) VALUES(2,	1	,20);
+           INSERT INTO employee_training122 (EMPNO1, TCODE,ATTENDANCE) VALUES(15	,2	,60);
+              INSERT INTO employee_training122 (EMPNO1, TCODE,ATTENDANCE) VALUES(40	,3	,70);
+                 INSERT INTO employee_training122 (EMPNO1, TCODE,ATTENDANCE) VALUES(25,	4,	65);
+                    INSERT INTO employee_training122 (EMPNO1, TCODE,ATTENDANCE) VALUES(14	,5,	80);
+                       INSERT INTO employee_training122 (EMPNO1, TCODE,ATTENDANCE) VALUES(31,	6,	39);
+                       
+                       SELECT * FROM employee_training122;
+                       
+ALTER TABLE employee_training122
+DROP 
+constraint fk_tc1it   ;
+------------LAB 12-------------------
+CREATE OR REPLACE TRIGGER emp122 
+BEFORE INSERT ON employee122
+BEGIN 
+     IF (TO_CHAR(sysdate, 'DY') IN ('FRI', 'SUN')) 
+     OR (TO_CHAR(sysdate, 'HH24') NOT BETWEEN '08' AND '18')      
+     THEN                   
+     RAISE_APPLICATION_ERROR (-20001, 'You may only insert into EMP during normal hours.'); 
+     END IF; 
+END; 
+INSERT INTO employee122 (EMPNO1, NAME1,DESIGNATION,QUALIFICATION,JOIN_DATE) VALUES(13, 'SHOAIB AHMMED',1, 'BE', TO_DATE('27-DEC-1980', 'DD-MON-YYYY'));
+
+
+CREATE OR REPLACE TRIGGER emp123 
+BEFORE INSERT ON employee122
+BEGIN 
+     IF (TO_CHAR(sysdate, 'DY') IN ('SAT', 'SUN')) 
+     OR (TO_CHAR(sysdate, 'HH24')  BETWEEN '08' AND '18')      
+     THEN                   
+     RAISE_APPLICATION_ERROR (-20001, 'You may only insert into EMP during normal hours.'); 
+     END IF; 
+END; 

@@ -1,0 +1,53 @@
+create table employee122
+(
+empno1 number(4),
+name1 varchar (20),
+designation varchar (40),
+qualification varchar (20),
+join_date date,
+constraint pk_pripit primary key (empno1));
+
+create table project1222
+(
+pid varchar(4),
+title varchar (20),
+clinet varchar (40),
+duration1 number,
+status varchar(14),
+constraint pk_prpit primary key (pid),
+CONSTRAINT ck_propit check (((lower(status)='new') or (upper(status)='new')or (initcap(status)='new')) or ((lower(status)='in progress') or (upper(status)='in progress')or (initcap(status)='in progress')) or ((lower(status)='complete') or (upper(status)='complete')or (initcap(status)='complete'))));
+
+create table employee_project122
+(
+empno1 number(4),
+pid varchar(5),
+performance1 varchar(14),
+CONSTRAINT ck_pro1t check (((lower(performance1)='excellent') or (upper(performance1)='excellent')or (initcap(performance1)='excellent')) or ((lower(performance1)='good') or (upper(performance1)='good')or (initcap(performance1)='good')) or ((lower(performance1)='fair') or (upper(performance1)='fair')or (initcap(performance1)='fair'))or ((lower(performance1)='bad') or (upper(performance1)='bad')or (initcap(performance1)='bad'))or ((lower(performance1)='poor') or (upper(performance1)='poor')or (initcap(performance1)='poor'))),
+constraint fk_emp12t foreign key (empno1) references employee122(empno1),
+constraint fk_pid3t foreign key (pid) references project1222(pid) );
+
+create table grade122
+(
+grade number,
+designation1 varchar (40),
+totalposts number,
+postavailable number,
+constraint ck_postit check (postavailable<=totalposts));
+
+create table training122
+(
+tcode varchar(4),
+title1 varchar (20),
+startdate date,
+enddate date,
+constraint pk_tcit primary key (tcode));
+
+
+create table employee_training122
+(
+empno1 number(4),
+tcode varchar(4),
+attendance number (3),
+constraint ck_attit check (attendance <=100 and attendance >=0),
+constraint fk_emp1t foreign key (empno1) references employee122(empno1),
+constraint fk_tc1it foreign key (tcode) references training122(tcode) );

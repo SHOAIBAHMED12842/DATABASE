@@ -1,0 +1,164 @@
+----------------------------------SCENERIO1---------------------------------------
+create table SHOAIB_ITEM
+(
+ITEM_ID number(4),
+ITEM_CODE VARCHAR2(9),
+ITEM_NAME varchar2 (40),
+ITEM_PRICE NUMBER (8),
+ITEM_QTY NUMBER(30),
+constraint pk_IDI primary key (ITEM_ID));
+
+CREATE SEQUENCE SHOAIB_ITEMID INCREMENT BY 1 START WITH 1;
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_42','USB',500,15);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_43','MOUSE',200,2);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_44','PRINTER',8000,1);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_45','CPU',10000,1);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_46','KEYBOARD',400,2);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_47','KEYBOARD',400,2);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_48','KEYBOARD',400,2);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_49','KEYBOARD',400,2);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_50','KEYBOARD',400,2);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_51','KEYBOARD',400,2);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_52','KEYBOARD',400,2);
+INSERT INTO SHOAIB_ITEM(ITEM_ID, ITEM_CODE,ITEM_NAME,ITEM_PRICE,ITEM_QTY) VALUES (SHOAIB_ITEMID.NEXTVAL, 'NK_53','KEYBOARD',400,8);
+SELECT * FROM SHOAIB_ITEM;
+
+create table SHOAIB_SE
+(
+ORDER_ID NUMBER(4),
+ITEM_ID number(4),
+ORDER_QTY NUMBER(30),
+ORDER_PRICE NUMBER (8),
+CUSTOMER_ID NUMBER(5),
+constraint pk_ODI primary key (ORDER_ID),
+CONSTRAINT FK_FIDI FOREIGN KEY (ITEM_ID) REFERENCES SHOAIB_ITEM (ITEM_ID));
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (1,1,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (2,2,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (3,3,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (4,4,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (5,5,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (6,11,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (7,12,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (8,13,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (9,14,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (10,15,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (11,16,2,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (12,17,10,1000,5);
+INSERT INTO SHOAIB_SE(ORDER_ID, ITEM_ID,ORDER_QTY,ORDER_PRICE,CUSTOMER_ID) VALUES (13,18,11,1000,5);
+
+
+CREATE OR REPLACE TRIGGER ORDERQTY
+BEFORE INSERT ON SHOAIB_SE
+FOR EACH ROW
+DECLARE
+  S_QUANTITY NUMBER(10);
+BEGIN
+  SELECT ITEM_QTY INTO S_QUANTITY FROM SHOAIB_ITEM WHERE ITEM_ID=:new.ITEM_ID;
+  IF :new.ORDER_QTY > S_QUANTITY
+  THEN
+    RAISE_APPLICATION_ERROR(-20001,'ORDER QUANTITY GREATER THAN ITEM QUANTITY');
+  end if;
+END;
+
+------------------------------SCENARIO2---------------------------------------------------
+create table Highschooler(ID int, name VARCHAR2(8), grade int);
+create table Friend(ID1 int, ID2 int);
+create table Likes(ID1 int, ID2 int);
+
+
+insert into Highschooler values (1510, 'Jordan', 9);
+insert into Highschooler values (1689, 'Gabriel', 9);
+insert into Highschooler values (1381, 'Tiffany', 9);
+insert into Highschooler values (1709, 'Cassandra', 9);
+insert into Highschooler values (1101, 'Haley', 10);
+insert into Highschooler values (1782, 'Andrew', 10);
+insert into Highschooler values (1468, 'Kris', 10);
+insert into Highschooler values (1641, 'Brittany', 10);
+insert into Highschooler values (1247, 'Alexis', 11);
+insert into Highschooler values (1316, 'Austin', 11);
+insert into Highschooler values (1911, 'Gabriel', 11);
+insert into Highschooler values (1501, 'Jessica', 11);
+insert into Highschooler values (1304, 'Jordan', 12);
+insert into Highschooler values (1025, 'John', 12);
+insert into Highschooler values (1934, 'Kyle', 12);
+insert into Highschooler values (1661, 'Logan', 12);
+
+
+insert into Friend values (1510, 1381);
+insert into Friend values (1510, 1689);
+insert into Friend values (1689, 1709);
+insert into Friend values (1381, 1247);
+insert into Friend values (1709, 1247);
+insert into Friend values (1689, 1782);
+insert into Friend values (1782, 1468);
+insert into Friend values (1782, 1316);
+insert into Friend values (1782, 1304);
+insert into Friend values (1468, 1101);
+insert into Friend values (1468, 1641);
+insert into Friend values (1101, 1641);
+insert into Friend values (1247, 1911);
+insert into Friend values (1247, 1501);
+insert into Friend values (1911, 1501);
+insert into Friend values (1501, 1934);
+insert into Friend values (1316, 1934);
+insert into Friend values (1934, 1304);
+insert into Friend values (1304, 1661);
+insert into Friend values (1661, 1025);
+insert into Friend SELECT ID2, ID1 FROM Friend;
+
+insert into Likes values(1689, 1709);
+insert into Likes values(1709, 1689);
+insert into Likes values(1782, 1709);
+insert into Likes values(1911, 1247);
+insert into Likes values(1247, 1468);
+insert into Likes values(1641, 1468);
+insert into Likes values(1316, 1304);
+insert into Likes values(1501, 1934);
+insert into Likes values(1934, 1501);
+insert into Likes values(1025, 1101);
+
+
+-----------TASK1---------------------------
+CREATE TRIGGER FRIEND_INSERT
+AFTER INSERT ON friend 
+FOR EACH ROW
+BEGIN 
+	INSERT INTO friend (ID1,ID2) VALUES (:new.id2, :new.id1); 
+END;
+
+CREATE TRIGGER FRIEND_DELETE 
+AFTER DELETE ON friend 
+FOR EACH ROW
+BEGIN 
+	DELETE FROM friend WHERE id1=:old.id2 AND id2=:old.id1; 
+END;
+
+-----------------TASK2------------
+
+CREATE TRIGGER graduate_trigger
+AFTER UPDATE on highschooler
+FOR EACH ROW
+when (new.grade > 12)
+BEGIN 
+	DELETE FROM highschooler WHERE id=:new.id; 
+END ;
+
+CREATE TRIGGER moving_ahead 
+AFTER UPDATE on highschooler 
+for EACH ROW
+WHEN (new.grade = old.grade + 1) 
+BEGIN 
+	UPDATE highschooler SET grade = grade+1 WHERE id in (SELECT id2 FROM friend WHERE id1=:new.id); 
+END;
+
+update Highschooler set grade = grade + 1 where name = 'Austin' or name = 'Kyle' or name = 'Logan';
+----------------TASK3--------------
+
+CREATE TRIGGER like_Trigger 
+AFTER UPDATE ON likes 
+WHEN (SELECT * FROM friend WHERE id1=new.id2 AND id2=old.id2 
+	AND new.id1 = old.id1 AND NOT new.id2 = old.id2) 
+BEGIN 
+	DELETE FROM friend where id1=:new.id2 AND :id2=old.id2); 
+	DELETE FROM friend WHERE id1=:old.id2 AND :id2=new.id2); 
+END;

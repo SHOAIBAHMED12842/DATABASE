@@ -1,0 +1,63 @@
+--------------lab14--------------
+SELECT * FROM employee_project122;
+SELECT * FROM project1222;
+CREATE OR REPLACE PROCEDURE RAISE_SALARY(V_ID IN EMP.empno%TYPE)
+IS 
+BEGIN
+UPDATE EMP SET SAL=SAL*1.10 WHERE EMPNO=V_ID;
+END RAISE_SALARY;
+
+UPDATE project1222 SET clinet='SHOAIB' WHERE pid=2;
+EXECUTE raise_salary(7654);
+CREATE OR REPLACE PROCEDURE get_projid(P_ID in project1222.pid%TYPE,
+p_title out project1222.title%TYPE,
+p_duration out project1222.duration1%TYPE,
+p_client out project1222.clinet%TYPE,
+p_status out project1222.status%TYPE)
+IS 
+BEGIN
+SELECT TITLE,CLINET,DURATION1,status into p_title,p_client,p_duration,p_status  FROM PROJECT1222 WHERE pid=P_ID;
+dbms_output.put_line('Done');
+END get_projid;
+
+variable pt VARCHAR2(40);
+variable pd NUMBER;
+variable pc VARCHAR2(40);
+variable ps VARCHAR2(14);
+execute get_projid(2,:pt,:pd,:pc,:ps);
+print pt;
+print pd;
+print pc;
+print ps;
+
+------------------------------------
+SELECT * FROM employee122;
+CREATE OR REPLACE PROCEDURE get_EMPDES(P_EMPN in employee122.empno1%TYPE,
+P_EMPD in employee122.designation%TYPE,
+p_EMPDE out employee122.designation%TYPE)
+IS 
+BEGIN
+UPDATE employee122 SET DESIGNATION=p_EMPD WHERE empno1=p_empn;
+dbms_output.put_line('Done');
+END get_EMPDES;
+variable NEWGRADE NUMBER;
+execute get_EMPDES(15,6,:NEWGRADE);
+PRINT NEWGRADE;
+
+------------------------------------------------------
+Update training122 set duration=(enddate-startdate)/7 where tcode in (select tcode from training122);
+SELECT * FROM employee_training122;
+insert into training122 (tcode,title1,startdate,enddate,instructor_name)VALUES(4,'COMMUNITY SERVICE',TO_DATE('08-NOV-80', 'DD-MON-YY'),TO_DATE('08-NOV-85', 'DD-MON-YY'),NULL);
+insert into training122 (tcode,title1,startdate,enddate,instructor_name)VALUES(5,'HANDLING SERVICE',TO_DATE('08-NOV-80', 'DD-MON-YY'),TO_DATE('08-NOV-85', 'DD-MON-YY'),NULL);
+insert into training122 (tcode,title1,startdate,enddate,instructor_name)VALUES(6,'JOB SERVICE',TO_DATE('08-NOV-80', 'DD-MON-YY'),TO_DATE('08-NOV-85', 'DD-MON-YY'),NULL);
+CREATE OR REPLACE PROCEDURE get_DURATION(P_TID in employee_training122.tcode%TYPE,
+p_duration out training122.duration%TYPE)
+IS 
+BEGIN
+SELECT duration into p_duration from training122 where tcode=p_tid;
+dbms_output.put_line('Done');
+END get_DURATION;
+variable duration_train number;
+execute get_DURATION(2,:duration_train);
+print duration_train;
+SELECT * FROM training122;

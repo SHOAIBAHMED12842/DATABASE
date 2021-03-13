@@ -1,0 +1,14 @@
+ALTER TABLE EMPLOYEE122
+ADD (
+gender varchar(20),
+constraint ck_gender check (((lower(gender)='male') or (upper(gender)='male')or (initcap(gender)='male')) or ((lower(gender)='female') or (upper(gender)='female')or (initcap(gender)='female')) ));
+
+ALTER TABLE TRAINING122
+ADD (
+INSTRUCTOR_NAME varchar(20));
+DESC EMPLOYEE122;
+DESC TRAINING122;
+ALTER TABLE GRADE122
+ADD (
+SALARY varchar(20));
+DESC GRADE122;
